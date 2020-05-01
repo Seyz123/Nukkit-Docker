@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk-slim AS base
 
-# Intermediate build image
+# Build image
 FROM base AS build
 
 RUN apt update && apt install -y \
@@ -17,7 +17,7 @@ FROM base AS run
 # Copy from build
 COPY --from=build /app /app
 
-#Setup minecraft user
+Setup minecraft user
 RUN useradd --user-group \
             --no-create-home \
             --home-dir /data \
@@ -30,7 +30,7 @@ VOLUME /data /home/minecraft
 # Ports
 EXPOSE 19132
 
-# Make phar owned by minecraft user
+# Make JAR owned by minecraft user
 RUN chown -R minecraft:minecraft /app
 
 # User and group to run as
